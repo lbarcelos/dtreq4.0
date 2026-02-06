@@ -1,0 +1,1835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ISO 23247 – Digital Twin Framework</title>
+
+<style>
+/* =====================================================
+   RESET E BASE GLOBAL
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #F2F2F2;
+}
+
+
+/* =====================================================
+   WRAPPERS BASE
+===================================================== */
+
+.iso-wrapper,
+.core-wrapper,
+.core-grid-wrapper,
+.ome-wrapper,
+.user-twin-wrapper,
+.device-twin-wrapper {
+    position: relative;
+}
+
+.main-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+
+
+/* =====================================================
+   GRID PRINCIPAL ISO
+===================================================== */
+
+.iso-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 170px;
+    grid-template-rows: auto auto;
+    gap: 10px;
+    padding: 10px;
+    align-items: start;
+    z-index: 1;
+}
+
+
+/* =====================================================
+   COLUNA DE CONTEÚDO
+===================================================== */
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    position: relative;
+    z-index: 1;
+}
+
+
+/* =====================================================
+   ENTIDADES
+===================================================== */
+
+.entity {
+    border: 3px solid #727A85;
+    background: #E2EEFF;
+    padding: 6px;
+}
+
+.entity-title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 11px;
+}
+
+
+/* =====================================================
+   CORE GRID (DIGITAL TWIN)
+===================================================== */
+
+.core-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.sub-entity {
+    border: 2px solid #727A85;
+    background: #E2EEFF;
+    padding:6px;
+    position: relative;
+    z-index: 2;
+}
+
+.sub-title {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 6px;
+}
+
+
+/* =====================================================
+   LINHAS DO CORE
+===================================================== */
+
+.core-line-straight {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    right: 16px;
+    height: 2px;
+    background: #727A85;
+    z-index: 0;
+}
+
+.u-line-left {
+    position: absolute;
+    left: calc(16.66% + 10px);
+    top: 50%;
+    width: 2px;
+    height: 15px;
+    background: #727A85;
+    transform: translateY(-100%);
+    z-index: 0;
+}
+
+.u-line-top {
+    position: absolute;
+    left: calc(16.66% + 10px);
+    right: calc(16.66% + 10px);
+    top: calc(50% - 15px);
+    height: 1px;
+    background: #727A85;
+    z-index: 0;
+}
+
+.u-line-right {
+    position: absolute;
+    right: calc(16.66% + 10px);
+    top: calc(50% - 15px);
+    width: 2px;
+    height: 40px;
+    background: #727A85;
+    z-index: 0;
+}
+
+
+/* =====================================================
+   FUNCTIONAL ENTITIES (FE)
+===================================================== */
+
+.fe {
+    background: #ffffff;
+    border: 1.5px solid #727A85;
+    padding: 8px 6px;
+    margin-bottom: 4px;
+    text-align: center;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.fe-twin {
+    background: #ffffff;
+    border: 1.5px solid #727A85;
+    padding: 8px 6px;
+    margin-bottom: 4px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.fe:hover {
+    background: #e8f5e9;
+}
+
+.fe-twin:hover {
+    background: #e8f5e9;
+}
+
+.fe-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+.fe-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+}
+
+
+/* =====================================================
+   DEVICE COMMUNICATION
+===================================================== */
+
+.device-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+
+/* =====================================================
+   CROSS-SYSTEM ENTITY (SENSÍVEL)
+===================================================== */
+
+.cross-column-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 0px;
+    align-self: stretch;
+}
+
+.cross-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    align-self: stretch;
+    border: 3px solid #727A85;
+    background: #E2EEFF;
+    padding: 6px;
+}
+
+.cross-title-vertical {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-weight: bold;
+    font-size: 20px;
+    white-space: nowrap;
+}
+
+.cross-fe-container {
+    display: flex;
+    gap: 8px;
+    height: 100%;
+    align-items: stretch;
+    flex: 1;
+}
+
+.cross-fe-vertical {
+    width: 36px;
+    flex: 1;
+    border: 1.8px solid #727A85;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.cross-fe-vertical:hover {
+    background: #e8f5e9;
+}
+
+
+/* =====================================================
+   LINHAS DE CONEXÃO
+===================================================== */
+
+.user-cross-wrapper,
+.twin-cross-wrapper,
+.device-cross-wrapper {
+    position: relative;
+}
+
+.line-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.line {
+    position: absolute;
+    background: #727A85;
+}
+
+.line.h {
+    height: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.line.v {
+    width: 2px;
+}
+
+.user-to-cross {
+    left: 100%;
+    width: 12px;
+}
+
+.twin-to-cross {
+    left: 100%;
+    width: 12px;
+}
+
+.device-to-cross {
+    left: 100%;
+    width: 12px;
+}
+
+.user-to-twin,
+.device-to-twin,
+.ome-to-device {
+    position: absolute;
+    left: 50%;
+    height: 10px;
+    top: -10px;
+}
+
+
+/* =====================================================
+   OME
+===================================================== */
+
+.ome {
+    border: 3px solid #727A85;
+    background: #eeeeee;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+}
+
+
+
+/* =====================================================
+   PAINEL DE REQUISITOS
+===================================================== */
+
+.requirements-panel {
+    position: fixed;
+    top: 0;
+    right: -420px;
+    width: 420px;
+    height: 100vh;
+    background: white;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+    transition: right 0.3s ease;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.requirements-panel.open {
+    right: 0;
+}
+
+.requirements-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    position: relative;
+  padding: 20px;
+  padding-right: 55px; /* espaço pro X */
+}
+
+.requirements-header h3 {
+    margin: 0;
+  padding-right: 40px;
+  word-break: break-word;
+}
+
+.panel-actions{
+  position: static;
+  margin-top: 12px;
+
+  display: flex;
+  gap: 10px;
+
+}
+
+.export-btn, .clear-btn{
+  background: rgba(255,255,255,0.22);
+  border: 1px solid rgba(255,255,255,0.32);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 10px;
+  border-radius: 10px;
+  line-height: 1;
+}
+
+.export-btn:hover, .clear-btn:hover{
+  background: rgba(255,255,255,0.30);
+}
+
+.export-count{
+  opacity: 0.9;
+  margin-left: 4px;
+  font-weight: 700;
+}
+
+.back-btn{
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.28);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 10px;
+  border-radius: 10px;
+  line-height: 1;
+}
+
+.back-btn:disabled{
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* mantém o X confortável dentro do header */
+.close-btn{
+  margin-left: 2px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.close-btn:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.requirements-content {
+    padding: 20px;
+}
+
+.requirement-item {
+    background: #f8f9fa;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.requirement-id {
+    font-weight: bold;
+    color: #667eea;
+    margin-bottom: 6px;
+}
+
+.requirement-description {
+    font-size: 14px;
+    color: #495057;
+    line-height: 1.5;
+}
+
+.requirement-type {
+    display: inline-block;
+    padding: 2px 8px;
+    margin-bottom: 6px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+}
+
+.requirement-type.functional {
+    background-color: #4caf50;
+}
+
+.requirement-type.non-functional {
+    background-color: #f44336;
+}
+
+
+
+
+.req-check {
+  margin-top: 4px;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.req-body {
+  flex: 1;
+}
+/* ==============================
+   DEPENDS ON – VISUAL STYLE
+================================ */
+
+
+  /* RESET VISUAL DO DEPENDS ON */
+.depends-section ul,
+.depends-section li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+.depends-section {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.depends-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6f8fae;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.depends-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.depends-fe {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 12px;
+
+  background: rgba(120, 150, 190, 0.35);
+  color: #0b0b0b;
+  border-left: 4px solid #4ea1ff;
+  border-radius: 6px;
+
+  font-size: 13px;
+}
+
+.depends-icon {
+  color: #7bb8ff;
+  font-size: 14px;
+}
+
+
+/* =====================================================
+   RESPONSIVO
+===================================================== */
+
+@media (max-width: 720px) {
+
+    .iso-grid {
+        display: block;
+    }
+
+    .cross-column-wrapper {
+        position: static;
+        margin: 20px 0;
+    }
+
+    .cross-column {
+        height: auto;
+        width: 100%;
+    }
+
+    .cross-fe-container {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .cross-fe-vertical,
+    .cross-title-vertical {
+        writing-mode: horizontal-tb;
+        transform: none;
+        height: auto;
+        width: auto;
+    }
+
+    .ome-wrapper {
+        margin-top: 10px;
+    }
+
+    .line,
+    .line-layer,
+    .cross-lines {
+        display: none;
+    }
+}
+
+</style>
+</head>
+
+<body>
+    <div class="iso-wrapper">
+
+    <!-- LAYER FOR CONNECTION LINES -->
+    <div class="line-layer"></div>
+
+    <div class="iso-grid">
+
+        <!-- =========================================================
+             MAIN CONTENT (LEFT SIDE)
+        ========================================================== -->
+        <div class="content" style="grid-row: 1; grid-column: 1;">
+            <div class="main-stack">
+
+                <!-- ================= USER ENTITY ================= -->
+                <div class="user-cross-wrapper">
+                    <div class="line h user-to-cross"></div>
+
+                    <div class="entity">
+                        <div class="entity-title">User Entity</div>
+                        <div class="fe">User Interface FE</div>
+                    </div>
+                </div>
+
+                <!-- ================= DIGITAL TWIN ENTITY ================= -->
+                <div class="twin-cross-wrapper">
+                    <div class="line h twin-to-cross"></div>
+
+                    <div class="user-twin-wrapper">
+                        <div class="line v user-to-twin"></div>
+
+                        <div class="entity">
+                            <div class="entity-title">Digital Twin Entity</div>
+
+                            <!-- Core U-shape connectors -->
+                            <div class="core-wrapper">
+                                <div class="u-line-left"></div>
+                                <div class="u-line-top"></div>
+                                <div class="u-line-right"></div>
+                            </div>
+
+                            <div class="core-grid-wrapper">
+                                <div class="core-line-straight"></div>
+
+                                <div class="core-grid">
+
+                                    <!-- Operation and Management Sub-Entity -->
+                                    <div class="sub-entity sub-operation">
+                                        <div class="sub-title">
+                                            Operation and Management <br>
+                                            Sub-Entity
+                                        </div>
+
+                                        <div class="fe-grid">
+                                            <div class="fe-twin" onclick="openPanel('Digital Representation FE')">
+                                                Digital Representation FE
+                                            </div>
+                                            <div class="fe-twin" onclick="openPanel('Maintenance FE')">
+                                                Maintenance FE
+                                            </div>
+                                            <div class="fe-twin" onclick="openPanel('Presentation FE')">
+                                                Presentation FE
+                                            </div>
+                                            <div class="fe-twin" onclick="openPanel('Synchronization FE')">
+                                                Synchronization FE
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Application and Service Sub-Entity -->
+                                    <div class="sub-entity sub-application">
+                                        <div class="sub-title">
+                                            Application and Service <br>
+                                            Sub-Entity
+                                        </div>
+
+                                        <div class="fe-grid">
+                                            <div class="fe-twin" onclick="openPanel('Simulation FE')">
+                                                Simulation FE
+                                            </div>
+                                            <div class="fe-twin" onclick="openPanel('Reporting FE')">
+                                                Reporting FE
+                                            </div>
+                                            <div class="fe-twin" onclick="openPanel('Analytic Service FE')">
+                                                Analytic Service FE
+                                            </div>
+                                            <div class="fe-twin" onclick="openPanel('Application Support FE')">
+                                                Application Support FE
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Resource Access and Interchange Sub-Entity -->
+                                    <div class="sub-entity sub-resource">
+                                        <div class="sub-title">
+                                            Resource Access and Interchange <br>
+                                            Sub-Entity
+                                        </div>
+
+                                        <div class="fe-grid">
+                                            <div class="fe-twin" onclick="openPanel('Interoperability Support FE')">
+                                                Interoperability Support FE
+                                            </div>
+                                            <div class="fe-twin" onclick="openPanel('Plug and Play Support FE')">
+                                                Plug and Play Support FE
+                                            </div>
+                                            <div class="fe-twin" onclick="openPanel('Access Control FE')">
+                                                Access Control FE
+                                            </div>
+                                            <div class="fe-twin" onclick="openPanel('Peer Interface FE')">
+                                                Peer Interface FE
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div> <!-- END CORE GRID -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= DEVICE COMMUNICATION ENTITY ================= -->
+                <div class="device-cross-wrapper">
+                    <div class="line h device-to-cross"></div>
+
+                    <div class="device-twin-wrapper">
+                        <div class="line v device-to-twin"></div>
+
+                        <div class="entity">
+                            <div class="entity-title">Device Communication Entity</div>
+
+                            <div class="device-grid">
+
+                                <!-- Data Collection Sub-Entity -->
+                                <div class="sub-entity">
+                                    <div class="sub-title">Data Collection Sub-Entity</div>
+
+                                    <div class="fe-grid fe-grid-3">
+                                        <div class="fe-twin" onclick="openPanel('Data Collecting FE')">
+                                            Data Collecting FE
+                                        </div>
+                                        <div class="fe-twin" onclick="openPanel('Data Pre-Processing FE')">
+                                            Data Pre-Processing FE
+                                        </div>
+                                        <div class="fe-twin" onclick="openPanel('Collection Identification FE')">
+                                            Collection Identification FE
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Device Control Sub-Entity -->
+                                <div class="sub-entity">
+                                    <div class="sub-title">Device Control Sub-Entity</div>
+
+                                    <div class="fe-grid fe-grid-3">
+                                        <div class="fe-twin" onclick="openPanel('Controlling FE')">
+                                            Controlling FE
+                                        </div>
+                                        <div class="fe-twin" onclick="openPanel('Actuation FE')">
+                                            Actuation FE
+                                        </div>
+                                        <div class="fe-twin" onclick="openPanel('Control Identification FE')">
+                                            Control Identification FE
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- END MAIN STACK -->
+        </div> <!-- END CONTENT -->
+
+        <!-- ================= OME ENTITY ================= -->
+        <div class="ome-wrapper" style="grid-row: 2; grid-column: 1;">
+            <div class="line v ome-to-device"></div>
+
+            <div class="ome">
+                Observable Manufacturing Elements (OMEs)
+                <br><br>
+
+                <div class="fe" onclick="openPanel('Resource-specific FEs')">
+                    Resource-specific FEs
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= CROSS-SYSTEM ENTITY ================= -->
+        <div class="cross-column-wrapper" style="grid-row: 1; grid-column: 2;">
+
+            <div class="cross-column">
+                <div class="cross-fe-container">
+
+                    <div class="cross-fe-vertical" onclick="openPanel('Data Assurance FE')">
+                        Data Assurance FE
+                    </div>
+
+                    <div class="cross-fe-vertical" onclick="openPanel('Data Translation FE')">
+                        Data Translation FE
+                    </div>
+
+                    <div class="cross-fe-vertical" onclick="openPanel('Security Support FE')">
+                        Security Support FE
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="cross-title-vertical">
+                Cross-System Entity
+            </div>
+
+        </div>
+
+    </div> <!-- END ISO GRID -->
+</div> <!-- END ISO WRAPPER -->
+
+<!-- =========================================================
+     REQUIREMENTS PANEL
+========================================================== -->
+<div class="requirements-panel" id="panel">
+  <div class="requirements-header">
+    <h3 id="panel-title">Requirements</h3>
+
+    <div class="panel-actions">
+        <button class="back-btn" id="back-btn" title="Voltar" disabled>← Voltar</button>
+      <button class="clear-btn" id="clear-btn" title="Limpar todas as seleções">
+        Limpar
+      </button>
+
+      <button class="export-btn" id="export-btn" title="Exportar requisitos selecionados">
+        Exportar <span class="export-count" id="export-count">(0)</span>
+      </button>
+
+      <button class="close-btn" onclick="closePanel()">×</button>
+    </div>
+  </div>
+
+  <div class="requirements-content" id="panel-content"></div>
+</div>
+</body>
+<script>
+/* =========================================================
+   REQUIREMENTS MAP
+   Mapping of requirements per Functional Entity (FE)
+========================================================== */
+const requirementsMap = {
+
+    "User Interface FE": {
+        requirements: [
+            {
+                id: "REQ-UI-001",
+                type: "functional",
+                description: "The UI shall provide a responsive dashboard for real-time data."
+            },
+            {
+                id: "REQ-UI-002",
+                type: "non-functional",
+                description: "UI load time must be under 2 seconds for standard use cases."
+            }
+        ],
+        dependsOn: [
+            "Synchronization FE (to receive real-time state updates)",
+            "Digital Representation FE (to visualize current and historical asset states)",
+            "Data Assurance FE (to ensure consistency and reliability of displayed data)",
+            "Security Support FE (to handle authentication and authorization)",
+            "Reporting FE (to present generated reports and summaries)",
+            "Analytic Service FE (to display insights and analytics results)"
+        ]
+    },
+
+    "Digital Representation FE": {
+        requirements: [
+            {
+                id: "REQ-DR-001",
+                type: "functional",
+                description: "The system shall maintain a real-time digital representation of physical assets."
+            },
+            {
+                id: "REQ-DR-002",
+                type: "functional",
+                description: "The digital representation shall reflect the current operational state of the physical asset."
+            },
+            {
+                id: "REQ-DR-003",
+                type: "functional",
+                description: "The system shall support synchronization between physical assets and their digital counterparts."
+            },
+            {
+                id: "REQ-DR-004",
+                type: "functional",
+                description: "The digital representation shall store historical state changes for traceability purposes."
+            },
+            {
+                id: "REQ-DR-005",
+                type: "functional",
+                description: "The system shall allow access to the digital representation through standardized interfaces."
+            },
+            {
+                id: "REQ-DR-006",
+                type: "non-functional",
+                description: "Updates to the digital representation shall occur with a maximum latency of 5 seconds."
+            },
+            {
+                id: "REQ-DR-007",
+                type: "non-functional",
+                description: "The digital representation shall ensure data consistency across all consuming systems."
+            },
+            {
+                id: "REQ-DR-008",
+                type: "non-functional",
+                description: "The system shall support scalable management of multiple digital representations simultaneously."
+            },
+            {
+                id: "REQ-DR-009",
+                type: "non-functional",
+                description: "The digital representation shall be available at least 99.5% of the time during operation."
+            },
+            {
+                id: "REQ-DR-010",
+                type: "non-functional",
+                description: "The system shall protect the digital representation against unauthorized modification."
+            }
+        ],
+        dependsOn: [
+            "Synchronization FE (to receive state updates)",
+            "Data Collecting FE (to receive data from OMEs)",
+            "Security Support FE (for authentication and authorization)",
+            "Data Assurance FE (to ensure data integrity)"
+        ]
+    },
+
+    "Maintenance FE": {
+        requirements: [
+            {
+                id: "REQ-MA-001",
+                type: "functional",
+                description: "System shall provide predictive maintenance alerts."
+            },
+            {
+                id: "REQ-MA-002",
+                type: "non-functional",
+                description: "Maintenance processing latency must be < 1 second."
+            }
+        ],
+        dependsOn: [
+            "Data Collecting FE (to receive operational and condition data)",
+            "Data Pre-Processing FE (to clean and prepare maintenance-related data)",
+            "Analytic Service FE (to generate predictive and diagnostic insights)",
+            "Digital Representation FE (to assess asset state and degradation history)",
+            "Synchronization FE (to maintain up-to-date maintenance status)",
+            "Security Support FE (to control access to maintenance functions)"
+        ]
+    },
+
+    "Presentation FE": {
+        requirements: [
+            {
+                id: "REQ-PR-001",
+                type: "functional",
+                description: "The Presentation FE shall render real-time system data in a user-friendly and intuitive manner."
+            },
+            {
+                id: "REQ-PR-002",
+                type: "functional",
+                description: "The Presentation FE shall provide configurable views for different user roles and use cases."
+            },
+            {
+                id: "REQ-PR-003",
+                type: "functional",
+                description: "The Presentation FE shall visualize relationships and dependencies between Functional Entities."
+            },
+            {
+                id: "REQ-PR-004",
+                type: "functional",
+                description: "The Presentation FE shall support interactive exploration of system components and their states."
+            },
+            {
+                id: "REQ-PR-005",
+                type: "functional",
+                description: "The Presentation FE shall allow users to drill down from high-level views to detailed FE information."
+            },
+            {
+                id: "REQ-PR-006",
+                type: "functional",
+                description: "The Presentation FE shall highlight changes in system state in near real-time."
+            },
+            {
+                id: "REQ-PR-007",
+                type: "non-functional",
+                description: "The Presentation FE shall update visual elements with a maximum latency of 2 seconds."
+            },
+            {
+                id: "REQ-PR-008",
+                type: "non-functional",
+                description: "The Presentation FE shall maintain consistent visual styling across all views and panels."
+            },
+            {
+                id: "REQ-PR-009",
+                type: "non-functional",
+                description: "The Presentation FE shall support responsive rendering across different screen sizes."
+            },
+            {
+                id: "REQ-PR-010",
+                type: "non-functional",
+                description: "The Presentation FE shall ensure accessibility compliance for color contrast and text readability."
+            },
+            {
+                id: "REQ-PR-011",
+                type: "non-functional",
+                description: "The Presentation FE shall be extensible to support future visualization components without architectural changes."
+            }
+        ],
+        dependsOn: [
+            "User Interface FE (to render visual components and interactions)",
+            "Digital Representation FE (to present current and historical system states)",
+            "Reporting FE (to display reports and formatted outputs)",
+            "Analytic Service FE (to visualize analytics results and KPIs)",
+            "Security Support FE (to enforce access control and data visibility)",
+            "Synchronization FE (to ensure real-time and consistent presentation)"
+        ]
+    },
+
+    "Synchronization FE": {
+        requirements: [
+            {
+                id: "REQ-SY-001",
+                type: "functional",
+                description: "The Synchronization FE shall synchronize state changes between physical assets and their digital representations."
+            },
+            {
+                id: "REQ-SY-002",
+                type: "functional",
+                description: "The Synchronization FE shall propagate updates to dependent Functional Entities in near real-time."
+            },
+            {
+                id: "REQ-SY-003",
+                type: "non-functional",
+                description: "The Synchronization FE shall ensure deterministic and ordered delivery of synchronization events."
+            },
+            {
+                id: "REQ-SY-004",
+                type: "non-functional",
+                description: "The Synchronization FE shall maintain synchronization latency below 500 milliseconds under normal operating conditions."
+            }
+        ],
+        dependsOn: [
+            "Data Collecting FE (to receive time-stamped data updates)",
+            "Digital Representation FE (to align physical and digital states)",
+            "Data Assurance FE (to ensure consistency during synchronization)",
+            "Security Support FE (to protect synchronized data and operations)",
+            "Resource-specific FEs (to coordinate synchronization at resource level)"
+        ]
+    },
+
+    "Simulation FE": {
+        requirements: [
+            {
+                id: "REQ-SI-001",
+                type: "functional",
+                description: "Provide simulation models of manufacturing systems."
+            },
+            {
+                id: "REQ-SI-002",
+                type: "non-functional",
+                description: "Support what-if analysis based on digital twin data."
+            }
+        ],
+        dependsOn: [
+            "Digital Representation FE (to use current and historical system models)",
+            "Data Collecting FE (to obtain real operational parameters)",
+            "Data Pre-Processing FE (to prepare input data for simulation models)",
+            "Synchronization FE (to align simulation time with system state)",
+            "Analytic Service FE (to evaluate simulation outcomes)",
+            "Security Support FE (to control access to simulation functions)"
+        ]
+    },
+
+    "Reporting FE": {
+        requirements: [
+            {
+                id: "REQ-RP-001",
+                type: "functional",
+                description: "The Reporting FE shall generate reports based on historical and current system data."
+            },
+            {
+                id: "REQ-RP-002",
+                type: "functional",
+                description: "The Reporting FE shall support configurable report formats and scheduling."
+            },
+            {
+                id: "REQ-RP-003",
+                type: "non-functional",
+                description: "The Reporting FE shall generate standard reports within acceptable processing time limits."
+            },
+            {
+                id: "REQ-RP-004",
+                type: "non-functional",
+                description: "The Reporting FE shall ensure accuracy and consistency of reported data."
+            }
+        ],
+        dependsOn: [
+            "Data Assurance FE (to ensure accuracy and consistency of reported data)",
+            "Digital Representation FE (to retrieve current and historical information)",
+            "Analytic Service FE (to include calculated metrics and insights)",
+            "Synchronization FE (to ensure reports reflect the latest system state)",
+            "Presentation FE (to format and present reports to users)",
+            "Security Support FE (to enforce access control to reports)"
+        ]
+    },
+
+    "Analytic Service FE": {
+        requirements: [
+            {
+                id: "REQ-AS-001",
+                type: "functional",
+                description: "The Analytic Service FE shall analyze digital twin data to identify patterns, trends, and anomalies."
+            },
+            {
+                id: "REQ-AS-002",
+                type: "functional",
+                description: "The Analytic Service FE shall provide analytical results and insights to consuming applications and services."
+            },
+            {
+                id: "REQ-AS-003",
+                type: "non-functional",
+                description: "The Analytic Service FE shall process analytical workloads with scalable performance as data volume increases."
+            },
+            {
+                id: "REQ-AS-004",
+                type: "non-functional",
+                description: "The Analytic Service FE shall ensure traceability and reproducibility of analytical results."
+            }
+        ],
+        dependsOn: [
+            "Data Collecting FE (to receive raw operational data)",
+            "Data Pre-Processing FE (to clean and aggregate analytical inputs)",
+            "Digital Representation FE (to contextualize analytics with system state)",
+            "Data Assurance FE (to ensure reliability of analytical results)",
+            "Synchronization FE (to align analytics with real-time data)",
+            "Security Support FE (to control access to analytics services)"
+        ]
+    },
+
+    "Application Support FE": {
+        requirements: [
+            {
+                id: "REQ-ASUP-001",
+                type: "functional",
+                description: "The Application Support FE shall provide common services and utilities required by digital twin applications."
+            },
+            {
+                id: "REQ-ASUP-002",
+                type: "functional",
+                description: "The Application Support FE shall manage application lifecycle support functions such as configuration and service coordination."
+            },
+            {
+                id: "REQ-ASUP-003",
+                type: "non-functional",
+                description: "The Application Support FE shall ensure high availability for shared application services."
+            },
+            {
+                id: "REQ-ASUP-004",
+                type: "non-functional",
+                description: "The Application Support FE shall operate with minimal impact on application performance."
+            }
+        ],
+        dependsOn: [
+            "Digital Representation FE (to access digital twin context)",
+            "Security Support FE (for authentication, authorization, and policy enforcement)",
+            "Interoperability Support FE (to enable integration between applications and services)",
+            "Synchronization FE (to coordinate application behavior with system state)"
+        ]
+    },
+
+    "Interoperability Support FE": {
+        requirements: [
+            {
+                id: "REQ-INT-001",
+                type: "functional",
+                description: "The Interoperability Support FE shall enable data exchange between heterogeneous systems using standardized interfaces."
+            },
+            {
+                id: "REQ-INT-002",
+                type: "functional",
+                description: "The Interoperability Support FE shall support protocol and data model adaptation between connected systems."
+            },
+            {
+                id: "REQ-INT-003",
+                type: "non-functional",
+                description: "The Interoperability Support FE shall ensure reliable communication between interoperating systems."
+            },
+            {
+                id: "REQ-INT-004",
+                type: "non-functional",
+                description: "The Interoperability Support FE shall be extensible to support new standards and interfaces with minimal impact."
+            }
+        ],
+        dependsOn: [
+            "Data Translation FE (to adapt data formats and semantics)",
+            "Security Support FE (to enforce secure interoperability)",
+            "Access Control FE (to regulate cross-system access)",
+            "Synchronization FE (to ensure consistent data exchange timing)"
+        ]
+    },
+
+    "Access Control FE": {
+        requirements: [
+            {
+                id: "REQ-AC-CTRL-001",
+                type: "functional",
+                description: "The Access Control FE shall enforce authorization policies for access to digital twin resources and services."
+            },
+            {
+                id: "REQ-AC-CTRL-002",
+                type: "functional",
+                description: "The Access Control FE shall manage role-based and policy-based access control mechanisms."
+            },
+            {
+                id: "REQ-AC-CTRL-003",
+                type: "non-functional",
+                description: "The Access Control FE shall apply access control decisions with minimal latency."
+            },
+            {
+                id: "REQ-AC-CTRL-004",
+                type: "non-functional",
+                description: "The Access Control FE shall support auditability of access control decisions."
+            }
+        ],
+        dependsOn: [
+            "Security Support FE (for authentication and security policy enforcement)",
+            "Interoperability Support FE (to apply access control across systems)",
+            "Data Assurance FE (to ensure integrity of access-related data)",
+            "Application Support FE (for centralized policy and configuration management)"
+        ]
+    },
+
+    "Plug and Play Support FE": {
+        requirements: [
+            {
+                id: "REQ-PNP-001",
+                type: "functional",
+                description: "The Plug and Play Support FE shall support automatic detection and registration of new devices and resources."
+            },
+            {
+                id: "REQ-PNP-002",
+                type: "functional",
+                description: "The Plug and Play Support FE shall enable dynamic integration of devices with minimal manual configuration."
+            },
+            {
+                id: "REQ-PNP-003",
+                type: "non-functional",
+                description: "The Plug and Play Support FE shall integrate new devices without disrupting ongoing system operations."
+            },
+            {
+                id: "REQ-PNP-004",
+                type: "non-functional",
+                description: "The Plug and Play Support FE shall ensure reliable identification of devices and resources."
+            }
+        ],
+        dependsOn: [
+            "Interoperability Support FE (to enable standardized integration)",
+            "Data Translation FE (to adapt device data models)",
+            "Security Support FE (to authenticate newly connected devices)",
+            "Access Control FE (to assign appropriate permissions to new resources)"
+        ]
+    },
+
+    "Peer Interface FE": {
+        requirements: [
+            {
+                id: "REQ-PEER-001",
+                type: "functional",
+                description: "The Peer Interface FE shall enable direct communication between digital twin systems or peer entities."
+            },
+            {
+                id: "REQ-PEER-002",
+                type: "functional",
+                description: "The Peer Interface FE shall support exchange of state and event information between peer entities."
+            },
+            {
+                id: "REQ-PEER-003",
+                type: "non-functional",
+                description: "The Peer Interface FE shall ensure reliable and ordered delivery of peer-to-peer communications."
+            },
+            {
+                id: "REQ-PEER-004",
+                type: "non-functional",
+                description: "The Peer Interface FE shall maintain interoperability across different peer implementations."
+            }
+        ],
+        dependsOn: [
+            "Application Support FE (to provide common services and lifecycle support)",
+            "Interoperability Support FE (to enable communication and data exchange between peer applications)",
+            "Synchronization FE (to coordinate state and timing between peer systems)",
+            "Security Support FE (for authentication, authorization, and policy enforcement)"
+        ]
+    },
+
+    "Data Collecting FE": {
+        requirements: [
+            {
+                id: "REQ-DC-001",
+                type: "functional",
+                description: "Collect real-time sensor data from devices."
+            },
+            {
+                id: "REQ-DC-002",
+                type: "non-functional",
+                description: "Data collection latency must be < 100ms."
+            }
+        ],
+        dependsOn: [
+            "Interoperability Support FE (to support standardized data exchange protocols)",
+            "Data Translation FE (to transform collected data into unified models)",
+            "Synchronization FE (to align collected data with system timelines)",
+            "Security Support FE (to ensure secure data acquisition)",
+            "Access Control FE (to enforce permissions for data ingestion)"
+        ]
+    },
+
+    "Data Pre-Processing FE": {
+        requirements: [
+            {
+                id: "REQ-DP-001",
+                type: "functional",
+                description: "Pre-process raw data to remove noise and errors."
+            },
+            {
+                id: "REQ-DP-002",
+                type: "non-functional",
+                description: "Processing throughput must handle 10,000 events/sec."
+            }
+        ],
+        dependsOn: [
+            "Data Collecting FE (to receive raw data streams)",
+            "Data Translation FE (to normalize and adapt incoming data formats)",
+            "Synchronization FE (to ensure temporal alignment during processing)",
+            "Data Assurance FE (to validate data quality and consistency)",
+            "Security Support FE (to protect data during processing)",
+            "Access Control FE (to restrict processing operations to authorized entities)"
+        ]
+    },
+
+    "Collection Identification FE": {
+        requirements: [
+            {
+                id: "REQ-COLID-001",
+                type: "functional",
+                description: "The Collection Identification FE shall uniquely identify and classify all data collections within the digital twin system."
+            },
+            {
+                id: "REQ-COLID-002",
+                type: "functional",
+                description: "The Collection Identification FE shall provide metadata and attributes for each identified data collection."
+            },
+            {
+                id: "REQ-COLID-003",
+                type: "non-functional",
+                description: "The Collection Identification FE shall ensure accurate and consistent identification of collections with minimal processing delay."
+            },
+            {
+                id: "REQ-COLID-004",
+                type: "non-functional",
+                description: "The Collection Identification FE shall maintain high reliability and fault tolerance in collection identification operations."
+            }
+        ],
+        dependsOn: [
+            "Application Support FE (to access common services and lifecycle management)",
+            "Control Identification FE (to link data collections to control points)",
+            "Digital Representation FE (to map collections to the digital twin context)",
+            "Interoperability Support FE (to share collection identification data across applications)",
+            "Security Support FE (for access control and authentication)"
+        ]
+    },
+
+    "Controlling FE": {
+        requirements: [
+            {
+                id: "REQ-CO-001",
+                type: "functional",
+                description: "Control devices based on digital twin instructions."
+            }
+        ],
+        dependsOn: [
+            "Analytic Service FE (to support decision-making logic)",
+            "Synchronization FE (to ensure coordinated control actions)",
+            "Security Support FE (to secure control commands)",
+            "Access Control FE (to enforce authorization for control operations)"
+        ]
+    },
+
+    "Actuation FE": {
+        requirements: [
+            {
+                id: "REQ-AC-001",
+                type: "functional",
+                description: "Trigger actuators within 50ms of control command."
+            }
+        ],
+        dependsOn: [
+            "Controlling FE (to receive control decisions and commands)",
+            "Synchronization FE (to ensure timely execution of actuation actions)",
+            "Security Support FE (to secure actuation commands)",
+            "Access Control FE (to restrict actuation to authorized entities)",
+            "Interoperability Support FE (to support heterogeneous actuators and protocols)"
+        ]
+    },
+
+    "Control Identification FE": {
+        requirements: [
+            {
+                id: "REQ-CID-001",
+                type: "functional",
+                description: "The Control Identification FE shall uniquely identify all control points within the digital twin system."
+            },
+            {
+                id: "REQ-CID-002",
+                type: "functional",
+                description: "The Control Identification FE shall provide metadata and attributes for each identified control point."
+            },
+            {
+                id: "REQ-CID-003",
+                type: "non-functional",
+                description: "The Control Identification FE shall ensure accurate and consistent identification with minimal latency."
+            },
+            {
+                id: "REQ-CID-004",
+                type: "non-functional",
+                description: "The Control Identification FE shall maintain high reliability and fault tolerance in identification operations."
+            }
+        ],
+        dependsOn: [
+            "Application Support FE (to access common services and lifecycle management)",
+            "Digital Representation FE (to map control points to the digital twin context)",
+            "Security Support FE (for access control and authentication)",
+            "Interoperability Support FE (to share control identification data across applications)"
+        ]
+    },
+
+    "Data Assurance FE": {
+        requirements: [
+            {
+                id: "REQ-DA-001",
+                type: "functional",
+                description: "Ensure data integrity and consistency across systems."
+            }
+        ],
+        dependsOn: [
+            "Data Collecting FE (to receive raw data for validation)",
+            "Data Pre-Processing FE (to support data cleansing and preparation)",
+            "Data Translation FE (to ensure semantic consistency of data)",
+            "Synchronization FE (to validate temporal correctness of data)",
+            "Security Support FE (to protect data integrity and authenticity)",
+            "Access Control FE (to restrict assurance operations to authorized entities)"
+        ]
+    },
+
+    "Data Translation FE": {
+        requirements: [
+            {
+                id: "REQ-DT-001",
+                type: "functional",
+                description: "Translate data formats between systems."
+            }
+        ],
+        dependsOn: [
+            "Data Collecting FE (to receive heterogeneous data sources)",
+            "Data Pre-Processing FE (to support data normalization workflows)",
+            "Interoperability Support FE (to ensure compatibility across data models)",
+            "Synchronization FE (to maintain temporal alignment during translation)",
+            "Security Support FE (to protect data during transformation)",
+            "Access Control FE (to enforce authorization for translation operations)"
+        ]
+    },
+
+    "Security Support FE": {
+        requirements: [
+            {
+                id: "REQ-SS-001",
+                type: "non-functional",
+                description: "All communications must comply with ISO 27001 standards."
+            }
+        ],
+        dependsOn: [
+            "Access Control FE (to enforce authorization policies)",
+            "Data Assurance FE (to ensure data integrity and trustworthiness)"
+        ]
+    },
+
+    "Resource-specific FEs": {
+        requirements: [
+            {
+                id: "",
+                type: "",
+                description: "Sem requisitos cadastrados"
+            }
+        ],
+        dependsOn: [
+            "Data Collecting FE (to interface with resource-specific devices)",
+            "Data Translation FE (to adapt resource-specific data formats)",
+            "Synchronization FE (to align resource behavior with system state)",
+            "Security Support FE (to enforce security policies at resource level)",
+            "Controlling FE (to send control commands to specific resources)",
+            "Actuation FE (to execute actions on physical or logical resources)"
+        ]
+    }
+};
+
+/* =========================================================
+   PANEL ELEMENT REFERENCES
+========================================================== */
+const panel = document.getElementById("panel");
+const panelTitle = document.getElementById("panel-title");
+const panelContent = document.getElementById("panel-content");
+const exportBtn = document.getElementById("export-btn");
+const clearBtn = document.getElementById("clear-btn");
+const exportCountEl = document.getElementById("export-count");
+const backBtn = document.getElementById("back-btn");
+
+// Pilha de histórico: guarda o caminho de FEs visitadas
+const feHistory = []; // exemplo: ["User Interface FE", "Reporting FE", ...]
+
+const updateBackButtonState = () => {
+  backBtn.disabled = feHistory.length === 0;
+};
+
+let currentFeName = null;
+
+// { "FE Name": Set(["REQ-XX-001", ...]) }
+const selectedRequirementsByFE = {};
+
+/* =========================================================
+   OPEN REQUIREMENTS PANEL
+========================================================== */
+const openPanel = (feName) => {
+  const feData = requirementsMap[feName];
+  if (!feData) return;
+
+  currentFeName = feName;
+
+  const requirements = feData.requirements || [];
+  const dependsOn = feData.dependsOn || [];
+
+  // garante Set pra FE
+  if (!selectedRequirementsByFE[feName]) {
+    selectedRequirementsByFE[feName] = new Set();
+  }
+
+  panelTitle.textContent = `${feName} (${requirements.length})`;
+
+  panelContent.innerHTML = `
+    ${requirements.map(req => {
+      const isChecked = selectedRequirementsByFE[feName].has(req.id) ? "checked" : "";
+      return `
+        <div class="requirement-item" data-reqid="${req.id}">
+          <input
+            class="req-check"
+            type="checkbox"
+            data-fe="${feName}"
+            data-reqid="${req.id}"
+            ${isChecked}
+          />
+          <div class="req-body">
+            <div class="requirement-id">${req.id}</div>
+            <div class="requirement-type ${req.type}">
+              ${req.type.toUpperCase()}
+            </div>
+            <div class="requirement-description">
+              ${req.description}
+            </div>
+          </div>
+        </div>
+      `;
+    }).join("")}
+
+    ${
+      dependsOn.length
+        ? `
+          <div class="depends-section">
+            <h4 class="depends-title">Depends on</h4>
+            <div class="depends-grid">
+              ${dependsOn.map(d => `
+                <div class="depends-fe" data-fe="${d}">
+                  <span class="depends-icon">↳</span>
+                  <span class="depends-text">${d}</span>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `
+        : ""
+    }
+  `;
+
+  panel.classList.add("open");
+  updateBackButtonState();
+};
+
+document.body.addEventListener("click", (event) => {
+
+    const dependsEl = event.target.closest(".depends-fe");
+    if (!dependsEl) return;
+
+    const rawText = dependsEl.dataset.fe;
+    const feName = rawText.split(" (")[0];
+
+    if (requirementsMap.hasOwnProperty(feName)) {
+    navigateToFe(feName);
+}
+});
+
+/* =========================================================
+   CLOSE REQUIREMENTS PANEL
+========================================================== */
+const closePanel = () => {
+  panel.classList.remove("open");
+  feHistory.length = 0;
+  updateBackButtonState();
+};
+
+/* =========================================================
+   EVENT DELEGATION
+========================================================== */
+const normalize = (str) =>
+    str.replace(/\s+/g, " ").trim();
+
+document.body.addEventListener("click", (event) => {
+
+    const feElement = event.target.closest(".fe, .fe-twin, .cross-fe-vertical");
+    if (!feElement) return;
+
+    const feName = normalize(feElement.textContent);
+
+    if (requirementsMap[feName]) {
+    navigateToFe(feName);
+}
+});
+
+document.body.addEventListener("change", (event) => {
+  const cb = event.target.closest(".req-check");
+  if (!cb) return;
+
+  const fe = cb.dataset.fe;
+  const reqId = cb.dataset.reqid;
+
+  if (!selectedRequirementsByFE[fe]) {
+    selectedRequirementsByFE[fe] = new Set();
+  }
+
+  if (cb.checked) selectedRequirementsByFE[fe].add(reqId);
+  else selectedRequirementsByFE[fe].delete(reqId);
+
+  updateExportCount();
+});
+
+const clearAllSelections = () => {
+  // zera todas as seleções
+  Object.keys(selectedRequirementsByFE).forEach(fe => {
+    selectedRequirementsByFE[fe].clear();
+  });
+
+  // desmarca checkboxes visíveis (do painel atual)
+  document.querySelectorAll(".req-check").forEach(cb => {
+    cb.checked = false;
+  });
+
+  updateExportCount();
+
+  // se quiser re-render completo do painel atual (para garantir “checked”)
+  if (currentFeName && requirementsMap[currentFeName]) {
+    openPanel(currentFeName);
+  }
+};
+
+clearBtn.addEventListener("click", clearAllSelections);
+
+const exportCurrentFeSelectionToTxt = () => {
+  if (!currentFeName) return;
+
+  const fe = currentFeName;
+  const selectedSet = selectedRequirementsByFE[fe] || new Set();
+  const selectedIds = Array.from(selectedSet);
+
+  // monta linhas: título FE + requisitos
+  const lines = [];
+  lines.push(fe);
+  lines.push("=".repeat(fe.length));
+
+  if (selectedIds.length === 0) {
+    lines.push("(Nenhum requisito selecionado)");
+  } else {
+    const reqList = requirementsMap[fe]?.requirements || [];
+    const reqById = new Map(reqList.map(r => [r.id, r]));
+
+    selectedIds.forEach((id) => {
+      const r = reqById.get(id);
+      if (!r) return;
+      lines.push(`- ${r.id} [${r.type}] ${r.description}`);
+    });
+  }
+
+  lines.push(""); // quebra final
+
+  const content = lines.join("\n");
+  const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+
+  const safeName = fe.replace(/[\\/:*?"<>|]+/g, "-");
+  const fileName = `${safeName} - requisitos selecionados.txt`;
+
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = fileName;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(a.href);
+};
+
+const exportAllSelectionsToTxt = () => {
+  // pega só as FEs com pelo menos 1 requisito selecionado
+  const feNames = Object.keys(selectedRequirementsByFE)
+    .filter(fe => (selectedRequirementsByFE[fe]?.size || 0) > 0);
+
+  if (feNames.length === 0) {
+    alert("Nenhum requisito selecionado ainda.");
+    return;
+  }
+
+  // opcional: ordenar alfabeticamente (ou manter ordem de seleção, se você quiser depois)
+  feNames.sort((a, b) => a.localeCompare(b));
+
+  const lines = [];
+
+  feNames.forEach((fe, idx) => {
+    const selectedIds = Array.from(selectedRequirementsByFE[fe]);
+
+    // Título da FE
+    lines.push(fe);
+    lines.push("=".repeat(fe.length));
+
+    // Map para buscar descrição/tipo
+    const reqList = requirementsMap[fe]?.requirements || [];
+    const reqById = new Map(reqList.map(r => [r.id, r]));
+
+    // Lista de requisitos selecionados
+    selectedIds.forEach((id) => {
+      const r = reqById.get(id);
+      if (!r) return;
+      lines.push(`- ${r.id} - ${r.description}`);
+    });
+
+    // separador entre FEs
+    if (idx < feNames.length - 1) lines.push("");
+  });
+
+  const content = lines.join("\n");
+  const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+
+  const fileName = `REQUISITOS.txt`;
+
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = fileName;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(a.href);
+};
+
+// liga no botão Exportar
+exportBtn.addEventListener("click", exportAllSelectionsToTxt);
+
+const getTotalSelectedCount = () => {
+  return Object.values(selectedRequirementsByFE)
+    .reduce((sum, set) => sum + (set?.size || 0), 0);
+};
+
+const updateExportCount = () => {
+  const total = getTotalSelectedCount();
+  exportCountEl.textContent = `(${total})`;
+};
+
+const navigateToFe = (feName, options = {}) => {
+  const { fromHistory = false } = options;
+
+  // Se já existe uma FE aberta e não é navegação via "Voltar", empilha a atual
+  if (!fromHistory && currentFeName && currentFeName !== feName) {
+    feHistory.push(currentFeName);
+  }
+
+  openPanel(feName);
+  updateBackButtonState();
+};
+
+backBtn.addEventListener("click", () => {
+  if (feHistory.length === 0) return;
+
+  const previousFe = feHistory.pop();
+  navigateToFe(previousFe, { fromHistory: true });
+});
+/* =========================================================
+   CLOSE BUTTON HANDLER
+========================================================== */
+document.querySelector(".close-btn")
+    .addEventListener("click", closePanel);
+updateExportCount();
+updateBackButtonState();
+</script>
+</body>
+</html>
