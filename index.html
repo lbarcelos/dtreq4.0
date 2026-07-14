@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>DTReq4.0: A Catalog of Digital Twin Requirements for Industry 4.0</title>
+    <title>DTspec: A Method for Specification of Digital Twin Requirements</title>
 
 <style>
 /* =====================================================
@@ -894,37 +894,37 @@ const requirementsMap = {
     "Digital Representation FE": {
         requirements: [
             {
-                id: "REQ-DR-FR-1",
+                id: "DR-FR-1",
                 type: "functional",
                 description: "Maintain digital models describing the physical, operational, and dynamic behavior of OMEs"
             },
             {
-                id: "REQ-DR-NFR-2",
+                id: "DR-NFR-2",
                 type: "non-functional",
                 description: "Ensure convergence between the OME and its corresponding DT"
             },
             {
-                id: "REQ-DR-NFR-3",
+                id: "DR-NFR-3",
                 type: "non-functional",
                 description: "Maintain semantic and structural consistency between digital models and their corresponding OMEs"
             },
             {
-                id: "REQ-DR-NFR-4",
+                id: "DR-NFR-4",
                 type: "non-functional",
                 description: "Organize digital models into decoupled and independent components"
             },
             {
-                id: "REQ-DR-NFR-5",
+                id: "DR-NFR-5",
                 type: "non-functional",
                 description: "Support replication to handle variable request loads"
             },
             {
-                id: "REQ-DR-NFR-6",
+                id: "DR-NFR-6",
                 type: "non-functional",
                 description: "Enable the reuse of digital models across different applications"
             },
             {
-                id: "REQ-DR-NFR-7",
+                id: "DR-NFR-7",
                 type: "non-functional",
                 description: "Enable portability across different platforms and environments"
             }            
@@ -940,57 +940,57 @@ const requirementsMap = {
     "Maintenance FE": {
         requirements: [
             {
-                id: "REQ-MT-FR-1",
+                id: "MT-FR-1",
                 type: "functional",
                 description: "Monitor DTs to detect faults, inconsistencies, or unexpected behavior"
             },
             {
-                id: "REQ-MT-FR-2",
+                id: "MT-FR-2",
                 type: "functional",
                 description: "Record detected anomalies and generate operator notifications"
             },
             {
-                id: "REQ-MT-FR-3",
+                id: "MT-FR-3",
                 type: "functional",
                 description: "Enable manual maintenance of DT models, rules, and parameters by operators"
             },
             {
-                id: "REQ-MT-FR-4",
+                id: "MT-FR-4",
                 type: "functional",
                 description: "Migrate the DT based on internal conditions or environmental changes"
             },
             {
-                id: "REQ-MT-FR-5",
+                id: "MT-FR-5",
                 type: "functional",
                 description: "Automate the tuning, rebuilding, or replacement of digital models"
             },
             {
-                id: "REQ-MT-FR-6",
+                id: "MT-FR-6",
                 type: "functional",
                 description: "Provide traceability of service interaction states to improve human-machine interaction and identify service faults"
             },
             {
-                id: "REQ-MT-FR-7",
+                id: "MT-FR-7",
                 type: "functional",
                 description: "Execute corrective or recovery actions when DT failures are detected"
             },
             {
-                id: "REQ-MT-NFR-8",
+                id: "MT-NFR-8",
                 type: "non-functional",
                 description: "Support software updates, without requiring system downtime"
             },
             {
-                id: "REQ-MT-NFR-9",
+                id: "MT-NFR-9",
                 type: "non-functional",
                 description: "Ensure data integrity during DT corrections and updates"
             },
             {
-                id: "REQ-MT-NFR-10",
+                id: "MT-NFR-10",
                 type: "non-functional",
                 description: "Scale computing resources to meet demand"
             },
             {
-                id: "REQ-MT-NFR-11",
+                id: "MT-NFR-11",
                 type: "non-functional",
                 description: "Ensure that different development teams maintain services"
             }
@@ -1005,12 +1005,12 @@ const requirementsMap = {
     "Presentation FE": {
         requirements: [
             {
-                id: "REQ-PT-FR-1",
+                id: "PT-FR-1",
                 type: "functional",
                 description: "Provide real-time visualization interfaces for OME and DT data"
             },
             {
-                id: "REQ-PT-FR-2",
+                id: "PT-FR-2",
                 type: "functional",
                 description: "Present information using appropriate formats (text, images, graphics, video, or audio)"
             }
@@ -1025,12 +1025,12 @@ const requirementsMap = {
     "Synchronization FE": {
         requirements: [
             {
-                id: "REQ-SC-FR-1",
+                id: "SC-FR-1",
                 type: "functional",
                 description: "Automatically update DT in real-time using data received from OMEs"
             },
             {
-                id: "REQ-SC-FR-2",
+                id: "SC-FR-2",
                 type: "functional",
                 description: "Synchronize DTs with their corresponding OMEs"
             }
@@ -1045,7 +1045,7 @@ const requirementsMap = {
     "Simulation FE": {
         requirements: [
             {
-                id: "REQ-SI-FR-1",
+                id: "SI-FR-1",
                 type: "functional",
                 description: "Simulate the behavior of the OME"
             }
@@ -1059,7 +1059,7 @@ const requirementsMap = {
     "Reporting FE": {
         requirements: [
             {
-                id: "REQ-RP-FR-1",
+                id: "RP-FR-1",
                 type: "functional",
                 description: "Generate operational reports using collected data, analyses, and simulation results"
             }
@@ -1073,87 +1073,87 @@ const requirementsMap = {
     "Analytic Service FE": {
         requirements: [
             {
-                id: "REQ-AS-FR-1",
+                id: "AS-FR-1",
                 type: "functional",
                 description: "Monitor OME conditions in real time"
             },
             {
-                id: "REQ-AS-FR-2",
+                id: "AS-FR-2",
                 type: "functional",
                 description: "Optimize production processes in real-time"
             },
             {
-                id: "REQ-AS-FR-3",
+                id: "AS-FR-3",
                 type: "functional",
                 description: "Perform predictive analytics to anticipate future outcomes"
             },
             {
-                id: "REQ-AS-FR-4",
+                id: "AS-FR-4",
                 type: "functional",
                 description: "Perform prescriptive analytics to recommend actions"
             },
             {
-                id: "REQ-AS-FR-5",
+                id: "AS-FR-5",
                 type: "functional",
                 description: "Analyze data from OMEs, simulations, and operational history"
             },
             {
-                id: "REQ-AS-FR-6",
+                id: "AS-FR-6",
                 type: "functional",
                 description: "Identify operational patterns and detect anomalies"
             },
             {
-                id: "REQ-AS-FR-7",
+                id: "AS-FR-7",
                 type: "functional",
                 description: "Support both open-loop and closed-loop application scenarios"
             },
             {
-                id: "REQ-AS-FR-8",
+                id: "AS-FR-8",
                 type: "functional",
                 description: "Provide metrics to quantify system capabilities"
             },
             {
-                id: "REQ-AS-NFR-9",
+                id: "AS-NFR-9",
                 type: "non-functional",
                 description: "Respond to unexpected events in an intelligent manner"
             },
             {
-                id: "REQ-AS-NFR-10",
+                id: "AS-NFR-10",
                 type: "non-functional",
                 description: "Evolve autonomously without directly depending on interventions"
             },
             {
-                id: "REQ-AS-NFR-11",
+                id: "AS-NFR-11",
                 type: "non-functional",
                 description: "Ensure services are loosely coupled for flexibility"
             },
             {
-                id: "REQ-AS-NFR-12",
+                id: "AS-NFR-12",
                 type: "non-functional",
                 description: "Ensure services are scalable to accommodate growth"
             },
             {
-                id: "REQ-AS-NFR-13",
+                id: "AS-NFR-13",
                 type: "non-functional",
                 description: "Enable the reuse of services across different applications"
             },
             {
-                id: "REQ-AS-NFR-14",
+                id: "AS-NFR-14",
                 type: "non-functional",
                 description: "Host services either in the cloud or on-premises"
             },
             {
-                id: "REQ-AS-NFR-15",
+                id: "AS-NFR-15",
                 type: "non-functional",
                 description: "Support structured and automated integration of analytics and domain expertise information"
             },
             {
-                id: "REQ-AS-NFR-16",
+                id: "AS-NFR-16",
                 type: "non-functional",
                 description: "Incorporate analytics and domain expertise to create intelligent solutions"
             },
             {
-                id: "REQ-AS-NFR-17",
+                id: "AS-NFR-17",
                 type: "non-functional",
                 description: "Implement narrow intelligence to meet a specific application domain"
             }
@@ -1169,32 +1169,32 @@ const requirementsMap = {
     "Application Support FE": {
         requirements: [
             {
-                id: "REQ-AP-FR-1",
+                id: "AP-FR-1",
                 type: "functional",
                 description: "Provide remote access to information"
             },
             {
-                id: "REQ-AP-FR-2",
+                id: "AP-FR-2",
                 type: "functional",
                 description: "Enable services to respond to specific requests"
             },
             {
-                id: "REQ-AP-FR-3",
+                id: "AP-FR-3",
                 type: "functional",
                 description: "Enable dynamic configuration of the system"
             },
             {
-                id: "REQ-AP-FR-4",
+                id: "AP-FR-4",
                 type: "functional",
                 description: "Provide a service that grants access to information made available by all services"
             },
             {
-                id: "REQ-AP-NFR-5",
+                id: "AP-NFR-5",
                 type: "non-functional",
                 description: "Include a computational engine that supports the solution"
             },
             {
-                id: "REQ-AP-NFR-6",
+                id: "AP-NFR-6",
                 type: "non-functional",
                 description: "Support standardized, reusable, and quantifiable verification and validation (V\&V) processes"
             }
@@ -1209,37 +1209,37 @@ const requirementsMap = {
     "Interoperability Support FE": {
         requirements: [
             {
-                id: "REQ-IS-FR-1",
+                id: "IS-FR-1",
                 type: "functional",
                 description: "Establish and maintain connections between OMEs and their DTs"
             },
             {
-                id: "REQ-IS-FR-2",
+                id: "IS-FR-2",
                 type: "functional",
                 description: "Integrate and process heterogeneous data from different sources"
             },
             {
-                id: "REQ-IS-FR-3",
+                id: "IS-FR-3",
                 type: "functional",
                 description: "Integrate functional services into enterprise level business processes"
             },
             {
-                id: "REQ-IS-FR-4",
+                id: "IS-FR-4",
                 type: "functional",
                 description: "Enable integration with external systems (e.g., ERP)"
             },
             {
-                id: "REQ-IS-FR-5",
+                id: "IS-FR-5",
                 type: "functional",
                 description: "Manage interactions between the digital model and the OME"
             },
             {
-                id: "REQ-IS-NFR-6",
+                id: "IS-NFR-6",
                 type: "non-functional",
                 description: "Implement real-time communication for hard constraints between a system and DT on the edge"
             },
             {
-                id: "REQ-IS-NFR-7",
+                id: "IS-NFR-7",
                 type: "non-functional",
                 description: "Implement soft real-time communication between the OME and the DT through a cloud-based solution"
             }
@@ -1253,22 +1253,22 @@ const requirementsMap = {
     "Access Control FE": {
         requirements: [
             {
-                id: "REQ-AC-FR-1",
+                id: "AC-FR-1",
                 type: "functional",
                 description: "Implement security measures including authentication, authorization, confidentiality, and integrity"
             },
             {
-                id: "REQ-AC-FR-2",
+                id: "AC-FR-2",
                 type: "functional",
                 description: "Monitor, detect, and log security events across the system"
             },
             {
-                id: "REQ-AC-NFR-3",
+                id: "AC-NFR-3",
                 type: "non-functional",
                 description: "Prevent unsafe interactions and unauthorized access"
             },
             {
-                id: "REQ-AC-NFR-4",
+                id: "AC-NFR-4",
                 type: "non-functional",
                 description: "Implement role-based access control policies"
             }
@@ -1282,17 +1282,17 @@ const requirementsMap = {
     "Plug and Play Support FE": {
         requirements: [
             {
-                id: "REQ-PP-FR-1",
+                id: "PP-FR-1",
                 type: "functional",
                 description: "Automatically discover and integrate new OMEs"
             },
             {
-                id: "REQ-PP-FR-2",
+                id: "PP-FR-2",
                 type: "functional",
                 description: "Automatically detect the communication protocol used by connected OMEs"
             },
             {
-                id: "REQ-PP-FR-3",
+                id: "PP-FR-3",
                 type: "functional",
                 description: "Support dynamic connection of OMEs to their DT"
             }
@@ -1307,27 +1307,27 @@ const requirementsMap = {
     "Peer Interface FE": {
         requirements: [
             {
-                id: "REQ-PI-FR-1",
+                id: "PI-FR-1",
                 type: "functional",
                 description: "Enable the integration of different models"
             },
             {
-                id: "REQ-PI-FR-2",
+                id: "PI-FR-2",
                 type: "functional",
                 description: "Provide communication interfaces for interaction with other DTs"
             },
             {
-                id: "REQ-PI-FR-3",
+                id: "PI-FR-3",
                 type: "functional",
                 description: "Notify the supervising DT of any changes in the integrated DT"
             },
             {
-                id: "REQ-PI-NFR-4",
+                id: "PI-NFR-4",
                 type: "non-functional",
                 description: "Support coordinated integration between multiple instances of different classes of DT"
             },
             {
-                id: "REQ-PI-NFR-5",
+                id: "PI-NFR-5",
                 type: "non-functional",
                 description: "Support coordinated integration between multiple instances of the same class of DT"
             }
@@ -1341,37 +1341,37 @@ const requirementsMap = {
     "Data Collecting FE": {
         requirements: [
             {
-                id: "REQ-DC-FR-1",
+                id: "DC-FR-1",
                 type: "functional",
                 description: "Capture data in a continuous flow from multiple sources simultaneously"
             },
             {
-                id: "REQ-DC-FR-2",
+                id: "DC-FR-2",
                 type: "functional",
                 description: "Automatically associate collected data with corresponding OMEs"
             },
             {
-                id: "REQ-DC-FR-3",
+                id: "DC-FR-3",
                 type: "functional",
                 description: "Capture data related to employee movement"
             },
             {
-                id: "REQ-DC-FR-4",
+                id: "DC-FR-4",
                 type: "functional",
                 description: "Capture positional and usage data from production machines"
             },
             {
-                id: "REQ-DC-FR-5",
+                id: "DC-FR-5",
                 type: "functional",
                 description: "Link time series data with contextual information"
             },
             {
-                id: "REQ-DC-NFR-6",
+                id: "DC-NFR-6",
                 type: "non-functional",
                 description: "Store and manage all relevant collected data in a centralized and integrated way to ensure reliability"
             },
             {
-                id: "REQ-DC-NFR-7",
+                id: "DC-NFR-7",
                 type: "non-functional",
                 description: "Support different replication strategies for storage services"
             }
@@ -1386,12 +1386,12 @@ const requirementsMap = {
     "Data Pre-Processing FE": {
         requirements: [
             {
-                id: "REQ-DP-FR-1",
+                id: "DP-FR-1",
                 type: "functional",
                 description: "Clean the data by removing errors and inconsistencies"
             },
             {
-                id: "REQ-DP-FR-2",
+                id: "DP-FR-2",
                 type: "functional",
                 description: "Transform data to ensure compatibility"
             }
@@ -1405,7 +1405,7 @@ const requirementsMap = {
     "Collecting Identification FE": {
         requirements: [
             {
-                id: "REQ-CI-FR-1",
+                id: "CI-FR-1",
                 type: "functional",
                 description: "Assign unique identifiers to each OME"
             }
@@ -1418,7 +1418,7 @@ const requirementsMap = {
     "Controlling FE": {
         requirements: [
             {
-                id: "REQ-CT-FR-1",
+                id: "CT-FR-1",
                 type: "functional",
                 description: "Send control commands to OMEs according to defined rules and policies"
             }
@@ -1431,7 +1431,7 @@ const requirementsMap = {
     "Actuation FE": {
         requirements: [
             {
-                id: "REQ-AT-FR-1",
+                id: "AT-FR-1",
                 type: "functional",
                 description: "Physically activate OMEs in response to received commands"
             }
@@ -1446,12 +1446,12 @@ const requirementsMap = {
     "Control Identification FE": {
         requirements: [
             {
-                id: "REQ-IF-FR-1",
+                id: "IF-FR-1",
                 type: "functional",
                 description: "Uniquely identify each OME for control purposes"
             },
             {
-                id: "REQ-IF-FR-2",
+                id: "IF-FR-2",
                 type: "functional",
                 description: "Verify the OME's identity before sending control commands"
             }
@@ -1464,17 +1464,17 @@ const requirementsMap = {
     "Data Assurance FE": {
         requirements: [
             {
-                id: "REQ-DA-NFR-1",
+                id: "DA-NFR-1",
                 type: "non-functional",
                 description: "Ensure secure exchanges of information"
             },
             {
-                id: "REQ-DA-NFR-2",
+                id: "DA-NFR-2",
                 type: "non-functional",
                 description: "Ensure the quality of data collected, stored, and utilized"
             },
             {
-                id: "REQ-DA-NFR-3",
+                id: "DA-NFR-3",
                 type: "non-functional",
                 description: "Ensure the integrity of stored and processed data"
             }
@@ -1487,7 +1487,7 @@ const requirementsMap = {
     "Data Translation FE": {
         requirements: [
             {
-                id: "REQ-DT-NFR-1",
+                id: "DT-NFR-1",
                 type: "non-functional",
                 description: "Ensure data is described with consistent semantics"
             }
@@ -1500,12 +1500,12 @@ const requirementsMap = {
     "Security Support FE": {
         requirements: [
             {
-                id: "REQ-SS-NFR-1",
+                id: "SS-NFR-1",
                 type: "non-functional",
                 description: "Protect DT against cyber threats"
             },
             {
-                id: "REQ-SS-NFR-2",
+                id: "SS-NFR-2",
                 type: "non-functional",
                 description: "Implement security controls to ensure the confidentiality, integrity, and traceability of all DT information"
             }
@@ -1846,7 +1846,7 @@ const exportAllTraceSessionsToTxt = () => {
   const blob = new Blob([lines.join("\n")], { type: "text/plain;charset=utf-8" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = "REQUISITOS_RASTREABILIDADE.txt";
+  a.download = "requisitos.txt";
   document.body.appendChild(a);
   a.click();
   a.remove();
